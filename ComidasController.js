@@ -1,14 +1,38 @@
-const { comidas } = require('./ComidasRepository')
+const { connect } = require('./ComidasRepository')
+const comidasModel = require('./ComidasSchema')
 
-const getAll = () => {
-  return comidas.pratosFavoritos
+connect() // para conectar no mongoDB
+
+const getAll = async () => {
+  return comidasModel.find((error, comidas) => {
+    return comidas
+  })
+}
+
+const getById = async (id) => {
+  return comidasModel.findById(
+    id,
+    (error, comida) => {
+      return comida
+    }
+  ) 
+  // const comidaCadastrada = getAll().find(comida =>{
+  //   return comida.id === id
+  // })
+  // return comidaCadastrada
 }
 
 const add = (comida) => {
-  comida.id = Math.random().toString(36).substr(-8)
-  getAll().push(comida)
-  return comida
+  const novaComida = new comidasModel({
+    nome: comida.nome,
+    descricao: comida.descricao
+  })
+  
+  novaComida.save()
 }
+
+
+
 
 const remove = (id) => {
   comidas.pratosFavoritos = getAll().filter((comida) => {
@@ -38,6 +62,7 @@ const update = (id, comida) => {
 
 module.exports = {
   getAll,
+  getById,
   add,
   remove,
   update
