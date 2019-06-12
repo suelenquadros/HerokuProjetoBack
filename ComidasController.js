@@ -25,9 +25,6 @@ const add = async (comida) => {
 
 
 const remove = async (id) => {
-  // comidas.pratosFavoritos = getAll().filter((comida) => {
-  //   return comida.id !== id
-  // })
   return comidasModel.findByIdAndDelete(id)
 }
 

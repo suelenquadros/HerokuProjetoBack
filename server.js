@@ -13,8 +13,6 @@ servidor.get('/comidas', async (request, response) => {
 })
 
 servidor.get('/comidas/:id', async (request, response) => {
-  // const id = request.params.id
-  // response.send(controller.getById(id))
   const id = request.params.id
   controller.getById(id)
     .then(comida => response.send(comida))
