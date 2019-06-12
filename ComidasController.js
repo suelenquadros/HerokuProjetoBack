@@ -4,40 +4,29 @@ const comidasModel = require('./ComidasSchema')
 connect() // para conectar no mongoDB
 
 const getAll = async () => {
-  return comidasModel.find((error, comidas) => {
-    return comidas
-  })
+  return comidasModel.find()
 }
 
-const getById = async (id) => {
-  return comidasModel.findById(
-    id,
-    (error, comida) => {
-      return comida
-    }
-  ) 
+const getById = (id) => {
+  return comidasModel.findById(id) 
 }
 
-const add = async (comida) => {
+const add = (comida) => {
   const novaComida = new comidasModel(comida)
   return novaComida.save()
 }
 
 
-const remove = async (id) => {
+const remove = (id) => {
   return comidasModel.findByIdAndDelete(id)
 }
 
-const update = async (id, comida) => {
+const update = (id, comida) => {
   return comidasModel.findByIdAndUpdate(
     id,
     { $set: comida },
     { new: true }, // RETORNAR A COMIDA JA ATUALIZADA NO CALLBACK
-    function (error, comida) { // é o nosso callback
-      return comida
-    }
   )
-
 }
 
 module.exports = {
