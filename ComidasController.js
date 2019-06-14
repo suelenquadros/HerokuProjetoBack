@@ -13,13 +13,12 @@ const getById = (id) => {
   return comidasModel.findById(id) 
 }
 
-const add = async (comida) => {
+const add = (comida) => {
   const novaComida = new comidasModel(comida)
   return novaComida.save()
 }
 
-
-const remove = async (id) => {
+const remove = (id) => {
   return comidasModel.findByIdAndDelete(id)
 }
 

@@ -32,7 +32,18 @@ servidor.get('/comidas/:id', (request, response) => {
 })
 
 servidor.post('/comidas', (request, response) => {
-  response.status(200).send(controller.add(request.body))
+  controller.add(request.body)
+    .then(comida => {
+      const _id = comida._id
+      response.send(_id)
+    })
+    .catch(error => {
+      if(error.name === "ValidationError"){
+        response.sendStatus(400) // bad request
+      } else {
+        response.sendStatus(500)
+      }
+    })
 })
 
 servidor.patch('/comidas/:id', (request, response) => {
@@ -51,10 +62,24 @@ servidor.patch('/comidas/:id', (request, response) => {
     })
 })
 
-servidor.delete('/comidas/:id', async (request, response) => {
+servidor.delete('/comidas/:id', (request, response) => {
   controller.remove(request.params.id)
-    .then(comida => response.sendStatus(204))
+    .then(comida => {
+      if(comida === null || comida === undefined){ // if(!comida) 
+        response.sendStatus(404) // not found
+      } else {
+        response.sendStatus(204)
+      }
+    })
+    .catch(error => {
+      if(error.name === "CastError"){
+        response.sendStatus(400) //bad request
+      } else {
+        response.sendStatus(500)
+      } 
+    })
 })
+
 
 servidor.listen(3000)
 console.log("servidorzinho rodando na porta 3000")
