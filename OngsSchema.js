@@ -7,6 +7,7 @@ const OngsSchema = new Schema({
   telefone: { type: Number, required: true },
   endereco: { type: String, required: true },
   ramo: { type: String, required: true },
+  email: { type: String, required: true },
   descricao: { type: String }, // opcional
   foto: { type: String}
 })
