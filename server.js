@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const controller = require('./OngsController')
+const PORT = process.env.PORT || 3000
 
 const servidor = express()
 servidor.use(cors())
@@ -81,5 +82,5 @@ servidor.delete('/ongs/:id', (request, response) => {
 })
 
 
-servidor.listen(3000)
-console.log("servidorzinho rodando na porta 3000")
+servidor.listen(PORT)
+console.info(`Rodando na porta ${PORT}`)
