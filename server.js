@@ -1,25 +1,25 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const controller = require('./ComidasController')
+const controller = require('./OngsController')
 
 const servidor = express()
 servidor.use(cors())
 servidor.use(bodyParser.json())
 
-servidor.get('/comidas', async (request, response) => {
+servidor.get('/ongs', (request, response) => {
   controller.getAll()
-    .then(comidas => response.send(comidas))
+    .then(ongs => response.send(ongs))
 })
 
-servidor.get('/comidas/:id', (request, response) => {
+servidor.get('/ongs/:id', (request, response) => {
   const id = request.params.id
   controller.getById(id)
-    .then(comida => {
-      if(!comida){ // comida === null || comida === undefined
+    .then(ong => {
+      if(!ong){ // comida === null || comida === undefined
         response.sendStatus(404) // comida nao encontrada
       } else {
-        response.send(comida) // Status default é 200
+        response.send(ong) // Status default é 200
       }
     })
     .catch(error => {
@@ -31,10 +31,10 @@ servidor.get('/comidas/:id', (request, response) => {
     })
 })
 
-servidor.post('/comidas', (request, response) => {
+servidor.post('/ongs', (request, response) => {
   controller.add(request.body)
-    .then(comida => {
-      const _id = comida._id
+    .then(ong => {
+      const _id = ong._id
       response.send(_id)
     })
     .catch(error => {
@@ -46,12 +46,12 @@ servidor.post('/comidas', (request, response) => {
     })
 })
 
-servidor.patch('/comidas/:id', (request, response) => {
+servidor.patch('/ongs/:id', (request, response) => {
   const id = request.params.id
   controller.update(id, request.body)
-    .then(comida => {
-      if(!comida) { response.sendStatus(404) } // nao encontrei a comida
-      else { response.send(comida) } // o status default 200
+    .then(ong => {
+      if(!ong) { response.sendStatus(404) } // nao encontrei a comida
+      else { response.send(ong) } // o status default 200
     })
     .catch(error => {
       if(error.name === "MongoError" || error.name === "CastError"){
@@ -62,10 +62,10 @@ servidor.patch('/comidas/:id', (request, response) => {
     })
 })
 
-servidor.delete('/comidas/:id', (request, response) => {
+servidor.delete('/ongs/:id', (request, response) => {
   controller.remove(request.params.id)
-    .then(comida => {
-      if(comida === null || comida === undefined){ // if(!comida) 
+    .then(ong => {
+      if(ong === null || ong === undefined){ // if(!comida)
         response.sendStatus(404) // not found
       } else {
         response.sendStatus(204)
@@ -76,7 +76,7 @@ servidor.delete('/comidas/:id', (request, response) => {
         response.sendStatus(400) //bad request
       } else {
         response.sendStatus(500)
-      } 
+      }
     })
 })
 

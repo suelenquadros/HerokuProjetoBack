@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
 // cada schema equivale collection
 const Schema = mongoose.Schema;
-const ComidasSchema = new Schema({
+const OngsSchema = new Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   nome: { type: String, required: true },
+  telefone: { type: Number, required: true },
+  endereco: { type: String, required: true },
+  ramo: { type: String, required: true },
   descricao: { type: String }, // opcional
-  valor: { type: Number }, //opcional
-  imagem: { type: String, required: true } //opcional
+  foto: { type: String}
 })
 
 // é a nossa coleção de comidas
-const comidasModel = mongoose.model("comidas", ComidasSchema);
+const ongsModel = mongoose.model("ongs", OngsSchema);
 
-module.exports = comidasModel;
+module.exports = ongsModel;
