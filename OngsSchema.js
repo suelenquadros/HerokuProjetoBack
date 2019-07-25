@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// cada schema equivale collection
+
 const Schema = mongoose.Schema;
 const OngsSchema = new Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
@@ -8,11 +8,11 @@ const OngsSchema = new Schema({
   endereco: { type: String, required: true },
   ramo: { type: String, required: true },
   email: { type: String, required: true },
-  descricao: { type: String }, // opcional
+  descricao: { type: String }, 
   foto: { type: String}
 })
 
-// é a nossa coleção de comidas
+
 const ongsModel = mongoose.model("ongs", OngsSchema);
 
 module.exports = ongsModel;

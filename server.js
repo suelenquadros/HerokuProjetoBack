@@ -17,18 +17,17 @@ servidor.get('/ongs/:id', (request, response) => {
   const id = request.params.id
   controller.getById(id)
     .then(ong => {
-      if(!ong){ // comida === null || comida === undefined
-        response.sendStatus(404) // comida nao encontrada
+      if(!ong){ 
+        response.sendStatus(404) 
       } else {
-        response.send(ong) // Status default é 200
+        response.send(ong) 
       }
     })
     .catch(error => {
       if(error.name === "CastError"){
-        response.sendStatus(400) // bad request - tem algum parametro errado
+        response.sendStatus(400)
       } else {
-        response.sendStatus(500) // deu ruim, e nao sabemos oq foi
-      }
+        response.sendStatus(500) 
     })
 })
 
@@ -40,7 +39,7 @@ servidor.post('/ongs', (request, response) => {
     })
     .catch(error => {
       if(error.name === "ValidationError"){
-        response.sendStatus(400) // bad request
+        response.sendStatus(400) 
       } else {
         response.sendStatus(500)
       }
@@ -51,13 +50,12 @@ servidor.patch('/ongs/:id', (request, response) => {
   const id = request.params.id
   controller.update(id, request.body)
     .then(ong => {
-      if(!ong) { response.sendStatus(404) } // nao encontrei a comida
-      else { response.send(ong) } // o status default 200
+      if(!ong) { response.sendStatus(404) }
+      else { response.send(ong) } 
     })
     .catch(error => {
       if(error.name === "MongoError" || error.name === "CastError"){
-        response.sendStatus(400) // bad request
-      } else {
+        response.sendStatus(400) 
         response.sendStatus(500)
       }
     })
@@ -66,15 +64,15 @@ servidor.patch('/ongs/:id', (request, response) => {
 servidor.delete('/ongs/:id', (request, response) => {
   controller.remove(request.params.id)
     .then(ong => {
-      if(ong === null || ong === undefined){ // if(!comida)
-        response.sendStatus(404) // not found
+      if(ong === null || ong === undefined){ 
+        response.sendStatus(404) 
       } else {
         response.sendStatus(204)
       }
     })
     .catch(error => {
       if(error.name === "CastError"){
-        response.sendStatus(400) //bad request
+        response.sendStatus(400) 
       } else {
         response.sendStatus(500)
       }

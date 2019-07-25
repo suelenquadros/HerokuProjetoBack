@@ -1,7 +1,7 @@
 const { connect } = require('./OngsRepository')
 const ongsModel = require('./OngsSchema')
 
-connect() // para conectar no mongoDB
+connect() 
 
 const getAll = async () => {
   return ongsModel.find((error, ongs) => {
@@ -26,7 +26,7 @@ const update = (id, ong) => {
   return ongsModel.findByIdAndUpdate(
     id,
     { $set: ong },
-    { new: true }, // RETORNAR A COMIDA JA ATUALIZADA NO CALLBACK
+    { new: true }, 
   )
 }
 
